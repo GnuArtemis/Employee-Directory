@@ -1,5 +1,6 @@
 import React from 'react'
 
+//Search bar, with one set of options for sorting, one set of options for searching, a text input area for the search, a submit button, and a reset button
 export default function SearchBar(props) {
     return (
         <div className="row">

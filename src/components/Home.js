@@ -1,4 +1,5 @@
 
+//Grabs the library, react library, axios library, and used react components.
 import React, { Component } from 'react';
 import "../style.css";
 import axios from "axios";
@@ -6,6 +7,7 @@ import EmployeeMedia from './EmployeeMedia';
 import SearchBar from './SearchBar';
 
 export default class Home extends Component {
+    //Tracks the list of employees, both modified and unmodified, as well as search/sort parameters
     state = {
         original: [],
         results: [],
@@ -14,8 +16,9 @@ export default class Home extends Component {
         sortBy: "name"
     }
 
+    //Gets the original list of employees (sample data from randomuser)
     getEmployees = () => {
-        axios.get("https://randomuser.me/api/?results=10&nat=us")
+        axios.get("https://randomuser.me/api/?results=200&nat=us")
             .then((result) => {
                 this.setState({ original: result.data.results })
                 const defaultSort = this.sortFiltered(this.state.original);
@@ -25,6 +28,7 @@ export default class Home extends Component {
 
     }
 
+    //Gets values from input changes for search and sort
     handleInputChange = event => {
         const name = event.target.name;
         const value = event.target.value;
@@ -33,6 +37,7 @@ export default class Home extends Component {
         });
     };
 
+    //Depending on the search parameters, only shows employees given a certain condition
     filterBy = () => {
         let filtered = []
         switch (this.state.searchBy) {
@@ -54,6 +59,7 @@ export default class Home extends Component {
         return filtered;
     }
 
+    //Depending on the sort parameters, orders employees by a certain condition
     sortFiltered = (filtered) => {
         switch (this.state.sortBy) {
             case "name":
@@ -95,7 +101,7 @@ export default class Home extends Component {
         return filtered;
     }
 
-    // When the form is submitted, search the Giphy API for `this.state.search`
+    // When the form is submitted, reset the page with new filters/sorting
     handleSearch = event => {
         event.preventDefault();
         let filtered = this.filterBy();
@@ -103,15 +109,17 @@ export default class Home extends Component {
         this.setState({ results: filtered })
     };
 
-
+    //Removes previous search results and returns it to its original result
     handleClearSearch = event => {
         this.setState({ results: this.state.original, search: "" })
     }
 
+    //On page load, display the original list of employees sorted by name
     componentDidMount() {
         this.getEmployees();
     }
 
+    //Element display, with appropriate functions passed in
     render() {
 
         return (

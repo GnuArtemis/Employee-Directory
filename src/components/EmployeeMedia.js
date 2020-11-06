@@ -1,11 +1,11 @@
 import React from 'react'
-
+//Displays a media object with employee picture, name, email, phone, birthday, and address
 export default function EmployeeMedia({employee}) {
     return (
         <ul className="list-unstyled">
             <div className="row">
                 <li className="media">
-                    <img src={employee.picture.large} className="mr-3 media-image" alt="Portrait" />
+                    <img src={employee.picture.large} className="mr-3 media-image" alt="Portrait" loading="lazy"/>
                     <div className="media-body">
                         <h4 className="mt-0 mb-1"><strong>{employee.name.title} {employee.name.first} {employee.name.last}</strong></h4>
                         <div className="container">
